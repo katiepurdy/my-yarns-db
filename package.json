@@ -1,0 +1,29 @@
+{
+  "name": "fullstackapplication",
+  "version": "1.0.0",
+  "description": "API to interface with some data using Express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NSCC-Fall2019-PROG3017/prog3017-my-fullstack-app-katiepurdy.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mongo",
+    "mongoos",
+    "api"
+  ],
+  "author": "Katie Purdy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NSCC-Fall2019-PROG3017/prog3017-my-fullstack-app-katiepurdy/issues"
+  },
+  "homepage": "https://github.com/NSCC-Fall2019-PROG3017/prog3017-my-fullstack-app-katiepurdy#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
