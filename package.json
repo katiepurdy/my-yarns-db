@@ -1,0 +1,41 @@
+{
+  "name": "full-stack-application",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon ./bin/start",
+    "test": "mocha --recursive"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mongo",
+    "mongoose",
+    "api"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NSCC-Fall2019-PROG3017/prog3017-my-fullstack-app-katiepurdy.git"
+  },
+  "author": "Katie Purdy",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "http-errors": "^1.7.3",
+    "morgan": "^1.9.1",
+    "node-sass-middleware": "^0.11.0",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3"
+  }
+}
