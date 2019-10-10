@@ -4,11 +4,24 @@ const httpErrors = require('http-errors');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const path = require('path');
+const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
 const app = express();
+
+mongoose
+  .connect('mongodb://localhost:27017/myFullStackApp', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .catch(error => console.log(error));
+
+const db = mongoose.connection;
+db.once('open', () => {
+  console.log('db connection successful');
+});
 
 app.set('views', path.join(__dirname, 'views'));
 // view engine setup
