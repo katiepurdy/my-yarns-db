@@ -5,17 +5,20 @@ const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const path = require('path');
 const mongoose = require('mongoose');
-
+const dotenv = require('dotenv');
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
-
+dotenv.config();
 const app = express();
-
+console.log(process.env.DB_PORT);
 mongoose
-  .connect('mongodb://localhost:27017/myFullStackApp', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  .connect(
+    `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
+    {
+      useNewUrlParser: process.env.DB_USE_NEW_URL_PARSER,
+      useUnifiedTopology: process.env.DB_USE_UNIFIED_TOPOLOGY
+    }
+  )
   .catch(error => console.log(error));
 
 const db = mongoose.connection;
