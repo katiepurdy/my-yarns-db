@@ -21,6 +21,7 @@
   },
   "author": "Katie Purdy",
   "dependencies": {
+    "@hapi/joi": "^16.1.7",
     "bcrypt": "^3.0.6",
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",

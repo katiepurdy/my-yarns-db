@@ -1,25 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const YarnSchema = require('./yarn');
 
-const YarnsSchema = new Schema({
-  name: String,
-  brand: String,
-  weight: String,
-  yardage: Number,
-  grams: Number,
-  gauge: String,
-  needleSize: String,
-  fibres: [String],
-  colourways: [String],
-  imagePath: String,
-  machineWashable: Boolean
-});
+const KnitterSchema = new Schema(
+  {
+    _id: { type: Schema.ObjectId, auto: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true },
+    yarns: [YarnSchema]
+  },
+  { versionKey: false }
+);
 
-const knitterSchema = new Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  yarns: [YarnsSchema]
-});
-
-module.exports = mongoose.model('Knitter', knitterSchema);
+module.exports = mongoose.model('Knitter', KnitterSchema);

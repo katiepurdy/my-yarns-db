@@ -8,22 +8,24 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
-dotenv.config();
 const app = express();
-console.log(process.env.DB_PORT);
+
+dotenv.config();
+
 mongoose
   .connect(
     `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
     {
-      useNewUrlParser: process.env.DB_USE_NEW_URL_PARSER,
-      useUnifiedTopology: process.env.DB_USE_UNIFIED_TOPOLOGY
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     }
   )
   .catch(error => console.log(error));
 
 const db = mongoose.connection;
+
 db.once('open', () => {
-  console.log('db connection successful');
+  console.log('Database connection successful');
 });
 
 app.set('views', path.join(__dirname, 'views'));
