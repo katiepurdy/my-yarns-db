@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const Knitter = require('../../models/knitter');
-const validator = require('../../validator');
+const { Knitter, validate } = require('../../models/knitter');
 
 router.get('/', (req, res) => {
   Knitter.find({}, (err, knitters) => {
@@ -11,8 +10,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  const id = req.params.id;
-  console.log(id);
   Knitter.findById(id, (err, knitter) => {
     if (err || !knitter)
       return res
@@ -32,7 +29,7 @@ router.post('/', (req, res) => {
       res.sendStatus(422); // Unprocessable Entity when the ID is not unique
     });
   } else {
-    const { error } = validator.validateKnitter(req.body);
+    const { error } = validate(req.body);
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
@@ -47,7 +44,7 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
   const id = req.params.id;
   const updatedKnitter = req.body;
-  const { error } = validator.validateKnitter(updatedKnitter);
+  const { error } = validate(updatedKnitter);
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
