@@ -84,5 +84,5 @@ const validateKnitter = knitter => {
   return knitterSchema.validate(knitter);
 };
 
-module.exports = mongoose.model('Knitter', KnitterSchema);
+module.exports.Knitter = mongoose.model('Knitter', KnitterSchema);
 module.exports.validate = validateKnitter;

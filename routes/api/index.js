@@ -4,7 +4,6 @@ const knittersRouter = require('./knitters');
 
 router.use('/knitters', knittersRouter);
 
-/* GET index page. */
 router.get('/', (req, res) => {
   res.send('Welcome to my API!');
 });
