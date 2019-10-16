@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const { User, validate } = require('../../../models/user');
+const { User, validateUser } = require('../../../models/user');
 
 router.get('/', (req, res) => {
   res.send('GET /api/users/register');
@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   // Validate the request body using Joi
-  const { error } = validate(req.body);
+  const { error } = validateUser(req.body);
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
