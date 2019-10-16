@@ -32,7 +32,7 @@ function normalizePort(val) {
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.APP_PORT || '3000');
 
 app.set('port', port);
 
@@ -52,14 +52,12 @@ server.listen(port);
  * Event listener for HTTP server "error" event.
  */
 /* eslint no-console: 0 */
-server.on('error', (error) => {
+server.on('error', error => {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  const bind = typeof port === 'string'
-    ? `Pipe ${port}`
-    : `Port ${port}`;
+  const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -82,8 +80,6 @@ server.on('error', (error) => {
 
 server.on('listening', () => {
   const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? `pipe ${addr}`
-    : `port ${addr.port}`;
+  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
   debug(`Listening on ${bind}`);
 });
