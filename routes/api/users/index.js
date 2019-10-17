@@ -7,6 +7,7 @@ const { User } = require('../../../models/user');
 router.use('/login', loginRouter);
 router.use('/register', registerRouter);
 
+// Get all users
 router.get('/', (req, res) => {
   User.find({}, (err, users) => {
     if (err) return res.status(400).send('Error');

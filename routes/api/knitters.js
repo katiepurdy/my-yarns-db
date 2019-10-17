@@ -1,7 +1,9 @@
 const { Router } = require('express');
 const router = Router();
 const { Knitter, validate } = require('../../models/knitter');
+const myMiddleware = require('../../middleware/myMiddleware');
 
+// Get all knitters
 router.get('/', (req, res) => {
   Knitter.find({}, (err, knitters) => {
     if (err) return res.status(400).send('Error');
@@ -9,6 +11,7 @@ router.get('/', (req, res) => {
   });
 });
 
+// Get a knitter by ID
 router.get('/:id', (req, res) => {
   Knitter.findById(id, (err, knitter) => {
     if (err || !knitter)
@@ -19,7 +22,8 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
+// Create a knitter
+router.post('/', myMiddleware.checkJWT, (req, res) => {
   // If an ID is included, make sure it's unique before continuing
   if (req.body._id) {
     Knitter.findById({ _id: req.body._id }, err => {
@@ -41,7 +45,8 @@ router.post('/', (req, res) => {
   }
 });
 
-router.put('/:id', (req, res) => {
+// Update a knitter by ID
+router.put('/:id', myMiddleware.checkJWT, (req, res) => {
   const id = req.params.id;
   const updatedKnitter = req.body;
   const { error } = validate(updatedKnitter);
@@ -56,7 +61,8 @@ router.put('/:id', (req, res) => {
   });
 });
 
-router.delete('/:id', (req, res) => {
+// Delete a knitter by ID
+router.delete('/:id', myMiddleware.checkJWT, (req, res) => {
   const id = req.params.id;
   Knitter.findByIdAndRemove(id, (err, knitter) => {
     if (err || !knitter)
