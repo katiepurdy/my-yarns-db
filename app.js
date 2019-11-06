@@ -9,6 +9,7 @@ const dotenv = require('dotenv');
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 const usersRouter = require('./routes/api/users');
+const cors = require('cors');
 const app = express();
 
 dotenv.config();
@@ -46,7 +47,7 @@ app.use(
   })
 );
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cors());
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
 app.use('/api/users', usersRouter);
