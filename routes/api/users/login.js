@@ -23,9 +23,9 @@ router.post('/', (req, res) => {
         return res.status(401).send('Error');
       }
       res
+        .header('Access-Control-Expose-Headers', '*')
         .header('x-auth-token', token)
-        .status(200)
-        .send('Successfully logged in!');
+        .json({ message: 'Successfully logged in!' });
     });
   });
 });
