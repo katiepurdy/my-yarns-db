@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from './components/NavBar';
 import Main from './components/Main';
 import SignIn from './components/SignIn';
+import Register from './components/Register';
 import Footer from './components/Footer';
 import {
   BrowserRouter as Router,
@@ -19,15 +20,10 @@ const App = () => {
       <div id="main-content">
         <Router>
           <Switch>
-            <Route path="/signin">
-              <SignIn />
-            </Route>
-            <Route path="/">
-              <Main />
-            </Route>
-            <Route path="*">
-              <NoMatch />
-            </Route>
+            <Route path="/signin" component={SignIn} />
+            <Route path="/register" component={Register} />
+            <Route path="/" component={Main} />
+            <Route path="*" component={NoMatch} />
           </Switch>
         </Router>
       </div>

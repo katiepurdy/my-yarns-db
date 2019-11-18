@@ -13,7 +13,7 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/api/knitters').then(response => {
+    axios.get('http://localhost:5000/api/yarns').then(response => {
       this.setState({
         data: response.data
       });
@@ -21,11 +21,12 @@ class Main extends React.Component {
   }
 
   generateCards() {
-    return this.state.data.map((knitter, i) => {
+    return this.state.data.map((yarn, i) => {
       return (
         <Card
-          firstName={knitter.firstName}
-          lastName={knitter.lastName}
+          brand={yarn.brand}
+          name={yarn.name}
+          imagePath={yarn.imagePath}
           key={i.toString()}
         />
       );
