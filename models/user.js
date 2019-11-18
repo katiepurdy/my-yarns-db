@@ -26,7 +26,10 @@ const validateUser = user => {
     password: Joi.string()
       .min(8)
       .max(255)
-      .required()
+      .required(),
+    confirmPassword: Joi.string()
+      .min(8)
+      .max(255)
   });
 
   return userSchema.validate(user);
