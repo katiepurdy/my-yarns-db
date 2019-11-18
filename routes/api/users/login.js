@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
       return res.status(401).send('Invalid email/password combination');
     }
     // Successfully authenticated
-    jwt.sign({ email: user.email }, process.env.JWT_SECRET, (err, token) => {
+    jwt.sign({ email: 'user.email' }, process.env.JWT_SECRET, (err, token) => {
       if (err) {
         return res.status(401).send('Error');
       }

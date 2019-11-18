@@ -1,6 +1,5 @@
 import React from 'react';
 import '../css/signin.css';
-import { Redirect } from 'react-router-dom';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -19,16 +18,15 @@ class SignIn extends React.Component {
       headers: {
         'Content-Type': 'application/json'
       }
-    })
-      .then(response => {
-        if (response.status === 200) {
-          // Store the JWT
-          // Redirect somewhere
-          return this.props.history.push('/');
-          //console.log('Success');
-        }
-      })
-      .then(json => console.log(json));
+    }).then(response => {
+      if (response.headers.get('x-auth-token')) {
+        localStorage.setItem(
+          'x-auth-token',
+          response.headers.get('x-auth-token')
+        );
+        return this.props.history.push('/');
+      }
+    });
   };
 
   handleChange = e => {
