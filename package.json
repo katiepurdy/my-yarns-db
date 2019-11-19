@@ -9,7 +9,7 @@
     "server": "nodemon ./bin/start",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "test": "mocha --recursive",
-    "start": "node ./bin/www"
+    "start": "node ./bin/start"
   },
   "keywords": [
     "node",
