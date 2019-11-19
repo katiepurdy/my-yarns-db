@@ -7,8 +7,9 @@
   "scripts": {
     "client": "cd client && npm start",
     "server": "nodemon ./bin/start",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "test": "mocha --recursive"
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "test": "mocha --recursive",
+    "start": "node ./bin/start"
   },
   "keywords": [
     "node",
