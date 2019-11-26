@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"myFullStackApp.knitters"}],"uuid":"e7be57e7b54a4f6d8b789469583d8f65"}
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"myFullStackApp.knitters"}],"uuid":"10c40bc5ebe345b2847b2e799e4ddccc"}
