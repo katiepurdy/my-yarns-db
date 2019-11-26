@@ -13,7 +13,7 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/api/yarns').then(response => {
+    axios.get(`${process.env.REACT_APP_API_URI}/yarns`).then(response => {
       this.setState({
         data: response.data
       });

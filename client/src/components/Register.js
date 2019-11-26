@@ -15,7 +15,7 @@ class Register extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    fetch('http://localhost:5000/api/users/register', {
+    fetch(`${process.env.REACT_APP_API_URI}/users/register`, {
       method: 'POST',
       body: JSON.stringify(this.state),
       headers: {

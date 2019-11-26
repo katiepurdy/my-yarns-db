@@ -12,7 +12,7 @@ class SignIn extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    fetch('http://localhost:5000/api/users/login', {
+    fetch(`${process.env.REACT_APP_API_URI}/users/login`, {
       method: 'POST',
       body: JSON.stringify(this.state),
       headers: {
