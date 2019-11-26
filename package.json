@@ -9,7 +9,8 @@
     "server": "nodemon ./bin/start",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "test": "mocha --recursive",
-    "start": "node ./bin/start"
+    "start": "node ./bin/start",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "keywords": [
     "node",
