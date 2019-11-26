@@ -43,13 +43,13 @@ app.use(
     sourceMap: true
   })
 );
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(cors());
-//app.use('/', indexRouter);
+app.use('/', indexRouter);
 app.use('/api', apiRouter);
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/client/build/index.html'));
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));
   });
 }
 app.use('/api/users', usersRouter);
