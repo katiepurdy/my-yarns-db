@@ -4,7 +4,7 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <a href="/#" className="navbar-brand d-flex align-items-center">
+        <a href="/" className="navbar-brand d-flex align-items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
