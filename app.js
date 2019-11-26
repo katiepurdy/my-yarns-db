@@ -43,7 +43,7 @@ app.use(
     sourceMap: true
   })
 );
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '/client/build')));
 app.use(cors());
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
