@@ -7,7 +7,6 @@ const YarnSchema = new Schema({
   brand: { type: String, required: true, minlength: 2, maxlength: 100 },
   weight: {
     type: String,
-    required: true,
     enum: [
       'Thread',
       'Cobweb',
@@ -43,22 +42,20 @@ const validateYarn = yarn => {
       .min(3)
       .max(50)
       .required(),
-    weight: Joi.string()
-      .valid(
-        'Thread',
-        'Cobweb',
-        'Lace',
-        'Light fingering',
-        'Fingering',
-        'Sport',
-        'DK',
-        'Worsted',
-        'Aran',
-        'Bulky',
-        'Super bulky',
-        'Jumbo'
-      )
-      .required(),
+    weight: Joi.string().valid(
+      'Thread',
+      'Cobweb',
+      'Lace',
+      'Light fingering',
+      'Fingering',
+      'Sport',
+      'DK',
+      'Worsted',
+      'Aran',
+      'Bulky',
+      'Super bulky',
+      'Jumbo'
+    ),
     grams: Joi.number()
       .integer()
       .min(10)

@@ -1,40 +1,33 @@
 import React from 'react';
-import '../css/register.css';
+import auth from '../services/auth';
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
+      userInfo: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      }
     };
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_API_URI}/users/register`, {
-      method: 'POST',
-      body: JSON.stringify(this.state),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(response => {
-      if (response.headers.get('x-auth-token')) {
-        localStorage.setItem(
-          'x-auth-token',
-          response.headers.get('x-auth-token')
-        );
-        return this.props.history.push('/');
-      }
+    auth.register(this.state.userInfo, (err, response) => {
+      if (err) return console.log(err);
+      return this.props.history.push('/');
     });
   };
 
   handleChange = e => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    const clonedUserInfo = { ...this.state.userInfo };
+    clonedUserInfo[name] = value;
+    this.setState({ userInfo: clonedUserInfo });
   };
 
   render() {

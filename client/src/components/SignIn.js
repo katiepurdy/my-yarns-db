@@ -1,37 +1,33 @@
 import React from 'react';
 import '../css/signin.css';
+import auth from '../services/auth';
 
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
+      credentials: {
+        email: '',
+        password: ''
+      },
+      errors: {}
     };
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_API_URI}/users/login`, {
-      method: 'POST',
-      body: JSON.stringify(this.state),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(response => {
-      if (response.headers.get('x-auth-token')) {
-        localStorage.setItem(
-          'x-auth-token',
-          response.headers.get('x-auth-token')
-        );
-        return this.props.history.push('/');
-      }
+    auth.login(this.state.credentials, (err, resopnse) => {
+      if (err) console.log(err);
+      const { referrer } = this.props.location;
+      return this.props.history.push(referrer ? referrer : '/');
     });
   };
 
   handleChange = e => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    const clonedCredentials = { ...this.state.credentials };
+    clonedCredentials[name] = value;
+    this.setState({ credentials: clonedCredentials });
   };
 
   render() {

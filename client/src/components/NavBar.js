@@ -1,4 +1,6 @@
 import React from 'react';
+import auth from '../services/auth';
+import { Link, withRouter } from 'react-router-dom';
 
 const NavBar = () => {
   return (
@@ -35,47 +37,44 @@ const NavBar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
         <div className="collapse navbar-collapse" id="navbarsExample07">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
+            <li className="nav-item">
               <a className="nav-link" href="/">
                 Home <span className="sr-only">(current)</span>
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/signin">
-                Sign in
-              </a>
+              <Link className="nav-link" to="/yarns/create">
+                Add New Yarn
+                <span className="sr-only">Add New Yarn</span>
+              </Link>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/register">
-                Register
-              </a>
-            </li>
-            {/* <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="/#"
-                id="dropdown07"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <div className="dropdown-menu" aria-labelledby="dropdown07">
-                <a className="dropdown-item" href="/#">
-                  Action
-                </a>
-                <a className="dropdown-item" href="/#">
-                  Another action
-                </a>
-                <a className="dropdown-item" href="/#">
-                  Something else here
-                </a>
-              </div>
-            </li> */}
+          </ul>
+
+          <ul className="navbar-nav navbar-right">
+            {auth.isAuthenticated() ? (
+              <React.Fragment>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/signout">
+                    Logout<span className="sr-only">Logout</span>
+                  </Link>
+                </li>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/signin">
+                    Login<span className="sr-only">Login</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">
+                    Register<span className="sr-only">Register</span>
+                  </Link>
+                </li>
+              </React.Fragment>
+            )}
           </ul>
         </div>
       </div>
@@ -83,4 +82,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default withRouter(NavBar);
