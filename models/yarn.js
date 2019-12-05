@@ -81,8 +81,8 @@ const validateYarn = yarn => {
         .max(50)
     ),
     imagePath: Joi.string()
-      .min(5)
-      .max(300),
+      .uri()
+      .required(),
     machineWashable: Joi.bool()
   });
 

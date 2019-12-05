@@ -1,6 +1,8 @@
 import React from 'react';
-import '../css/signin.css';
 import auth from '../services/auth';
+import { Redirect } from 'react-router-dom';
+import Joi from 'joi-browser';
+import validationService from '../services/validationService';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -14,10 +16,33 @@ class SignIn extends React.Component {
     };
   }
 
+  schema = {
+    email: Joi.string()
+      .email()
+      .required()
+      .label('Email address'),
+    password: Joi.string()
+      .min(8)
+      .max(255)
+      .label('Password')
+  };
+
   handleSubmit = e => {
     e.preventDefault();
+    const errors = validationService.validate(
+      this.state.credentials,
+      this.schema
+    );
+    this.setState({ errors: errors || {} });
+    if (errors) return;
     auth.login(this.state.credentials, (err, resopnse) => {
-      if (err) console.log(err);
+      if (err) {
+        if (err.status === 401) {
+          this.setState({ errors: { message: 'Invalid Login' } });
+          return;
+        }
+        return console.log(err);
+      }
       const { referrer } = this.props.location;
       return this.props.history.push(referrer ? referrer : '/');
     });
@@ -27,20 +52,30 @@ class SignIn extends React.Component {
     const { name, value } = e.target;
     const clonedCredentials = { ...this.state.credentials };
     clonedCredentials[name] = value;
-    this.setState({ credentials: clonedCredentials });
+    this.setState({ credentials: clonedCredentials, errors: {} });
   };
 
   render() {
-    return (
+    return auth.isAuthenticated() ? (
+      <Redirect to="/" />
+    ) : (
       <form className="form-signin" onSubmit={this.handleSubmit}>
         <h1 className="h3 mb-3 font-weight-normal text-center">
           Please sign in
         </h1>
+        {Object.keys(this.state.errors).length > 0 &&
+          Object.keys(this.state.errors).map((key, i) => {
+            return (
+              <div className="alert alert-danger" role="alert" key={i}>
+                {this.state.errors[key]}
+              </div>
+            );
+          })}
         <label htmlFor="inputEmail" className="sr-only">
           Email address
         </label>
         <input
-          type="email"
+          type="text"
           id="inputEmail"
           name="email"
           className="form-control"

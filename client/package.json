@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "font-awesome": "^4.7.0",
+    "joi-browser": "^13.4.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",

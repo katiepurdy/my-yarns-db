@@ -1,5 +1,7 @@
 import React from 'react';
 import auth from '../services/auth';
+import Joi from 'joi-browser';
+import validationService from '../services/validationService';
 
 class Register extends React.Component {
   constructor(props) {
@@ -11,15 +13,53 @@ class Register extends React.Component {
         email: '',
         password: '',
         confirmPassword: ''
-      }
+      },
+      errors: {}
     };
   }
 
+  schema = {
+    firstName: Joi.string()
+      .min(2)
+      .max(100)
+      .required()
+      .label('First name'),
+    lastName: Joi.string()
+      .min(2)
+      .max(100)
+      .required()
+      .label('Last name'),
+    email: Joi.string()
+      .email()
+      .required()
+      .label('Email address'),
+    password: Joi.string()
+      .min(8)
+      .max(255)
+      .required()
+      .label('Password'),
+    confirmPassword: Joi.string()
+      .min(8)
+      .max(255)
+      .required()
+      .label('Confirm password')
+  };
+
   handleSubmit = e => {
     e.preventDefault();
-    auth.register(this.state.userInfo, (err, response) => {
-      if (err) return console.log(err);
-      return this.props.history.push('/');
+    const errors = validationService.validate(this.state.userInfo, this.schema);
+    this.setState({ errors: errors || {} });
+    if (errors) return;
+    auth.register(this.state.userInfo, (err, resopnse) => {
+      if (err) {
+        if (err.status === 409) {
+          this.setState({ errors: { message: 'Passwords do not match' } });
+          return;
+        }
+        return console.log(err);
+      }
+      const { referrer } = this.props.location;
+      return this.props.history.push(referrer ? referrer : '/');
     });
   };
 
@@ -27,7 +67,7 @@ class Register extends React.Component {
     const { name, value } = e.target;
     const clonedUserInfo = { ...this.state.userInfo };
     clonedUserInfo[name] = value;
-    this.setState({ userInfo: clonedUserInfo });
+    this.setState({ userInfo: clonedUserInfo, errors: {} });
   };
 
   render() {
@@ -36,6 +76,14 @@ class Register extends React.Component {
         <h1 className="h3 mb-3 font-weight-normal text-center">
           Please register
         </h1>
+        {Object.keys(this.state.errors).length > 0 &&
+          Object.keys(this.state.errors).map((key, i) => {
+            return (
+              <div className="alert alert-danger" role="alert" key={i}>
+                {this.state.errors[key]}
+              </div>
+            );
+          })}
         <div className="form-group">
           <label htmlFor="inputFirstName" className="sr-only">
             First name
@@ -96,7 +144,7 @@ class Register extends React.Component {
             id="inputConfirmPassword"
             name="confirmPassword"
             className="form-control"
-            placeholder="Confirm Password"
+            placeholder="Confirm password"
             autoComplete="new-password"
             onChange={this.handleChange}
           />

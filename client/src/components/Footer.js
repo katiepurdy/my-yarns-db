@@ -8,7 +8,7 @@ const Footer = props => {
         <p className="float-right">
           <a href="/#">Back to top</a>
         </p>
-        <p>Full-Stack Programming - Assignment 3 - Katie Purdy</p>
+        <p>Full-Stack Programming - Assignment 4 - Katie Purdy</p>
       </div>
     </footer>
   );
