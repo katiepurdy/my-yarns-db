@@ -1,4 +1,5 @@
 import axios from 'axios';
+import decode from 'jwt-decode';
 
 class Auth {
   login(credentials, cb) {
@@ -36,6 +37,15 @@ class Auth {
 
   getToken() {
     return localStorage.getItem('x-auth-token');
+  }
+
+  getUser() {
+    const token = localStorage.getItem('x-auth-token');
+    if (token) {
+      const decoded = decode(token);
+      return decoded.email;
+    }
+    return null;
   }
 }
 

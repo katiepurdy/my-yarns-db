@@ -55,10 +55,25 @@ const NavBar = () => {
           <ul className="navbar-nav navbar-right">
             {auth.isAuthenticated() ? (
               <React.Fragment>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/signout">
-                    Logout<span className="sr-only">Logout</span>
-                  </Link>
+                <li className="nav-item active dropdown">
+                  <a
+                    className="nav-link dropdown-toggle"
+                    href="/#"
+                    id="dropdown07"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Welcome {auth.getUser()}!
+                  </a>
+                  <div
+                    className="dropdown-menu dropdown-menu-right w-100"
+                    aria-labelledby="dropdown07"
+                  >
+                    <Link className="dropdown-item" to="/signout">
+                      Logout
+                    </Link>
+                  </div>
                 </li>
               </React.Fragment>
             ) : (
