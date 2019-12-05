@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 
 // Get a yarn by ID
 router.get('/:id', (req, res) => {
-  Yarn.findById(id, (err, yarn) => {
+  Yarn.findById(req.params.id, (err, yarn) => {
     if (err || !yarn)
       return res
         .status(404)

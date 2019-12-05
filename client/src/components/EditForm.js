@@ -4,7 +4,7 @@ import validationService from '../services/validationService';
 import { Link } from 'react-router-dom';
 import Joi from 'joi-browser';
 
-class CreateForm extends React.Component {
+class EditForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +15,14 @@ class CreateForm extends React.Component {
       },
       errors: {}
     };
+  }
+
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    dataService.getYarn(id, (err, yarn) => {
+      if (err) return console.log(err);
+      this.setState({ yarn });
+    });
   }
 
   schema = {
@@ -30,17 +38,57 @@ class CreateForm extends React.Component {
       .label('Yarn name'),
     imagePath: Joi.string()
       .required()
-      .uri()
-      .label('Yarn image')
+      .label('Yarn image'),
+    weight: Joi.string().valid(
+      'Thread',
+      'Cobweb',
+      'Lace',
+      'Light fingering',
+      'Fingering',
+      'Sport',
+      'DK',
+      'Worsted',
+      'Aran',
+      'Bulky',
+      'Super bulky',
+      'Jumbo'
+    ),
+    grams: Joi.number()
+      .integer()
+      .min(10)
+      .max(10000),
+    yardage: Joi.number()
+      .integer()
+      .min(10)
+      .max(100000),
+    gauge: Joi.string()
+      .min(10)
+      .max(100),
+    needleSize: Joi.string()
+      .min(3)
+      .max(50),
+    fibres: Joi.array().items(
+      Joi.string()
+        .min(3)
+        .max(50)
+    ),
+    colourways: Joi.array().items(
+      Joi.string()
+        .min(2)
+        .max(50)
+    ),
+    machineWashable: Joi.bool()
   };
 
   handleSubmit = e => {
     e.preventDefault();
+    delete this.state.yarn._id;
     const errors = validationService.validate(this.state.yarn, this.schema);
     this.setState({ errors: errors || {} });
     if (errors) return;
+    const id = this.props.match.params.id;
     const yarn = { ...this.state.yarn };
-    dataService.createYarn(yarn, (err, response) => {
+    dataService.updateYarn(id, yarn, (err, response) => {
       if (err) {
         if (err.status === 400) {
           this.setState({ errors: { message: 'Something went wrong' } });
@@ -48,8 +96,7 @@ class CreateForm extends React.Component {
         }
         return console.log(err);
       }
-      const { referrer } = this.props.location;
-      return this.props.history.push(referrer ? referrer : '/');
+      return this.props.history.push('/');
     });
   };
 
@@ -64,7 +111,7 @@ class CreateForm extends React.Component {
     return (
       <div className="container d-flex mt-5 w-100">
         <div className="mr-5 w-50">
-          <h3>Add New Yarn</h3>
+          <h3>Edit Yarn Details</h3>
           {Object.keys(this.state.errors).length > 0 &&
             Object.keys(this.state.errors).map((key, i) => {
               return (
@@ -114,16 +161,15 @@ class CreateForm extends React.Component {
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.yarn.imagePath}
-                placeholder="https://i.imgur.com/bZKQvVk.jpg"
               />
             </div>
             <div className="form-group">
               <button
                 className="btn btn-primary mr-1"
-                name="submit"
+                name="update"
                 type="submit"
               >
-                Submit
+                Update
               </button>
               <Link className="btn btn-secondary" to="/" name="cancel">
                 Cancel
@@ -145,4 +191,4 @@ class CreateForm extends React.Component {
   }
 }
 
-export default CreateForm;
+export default EditForm;

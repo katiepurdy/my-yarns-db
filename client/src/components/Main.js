@@ -1,35 +1,25 @@
 import React from 'react';
-import '../css/main.css';
-import 'font-awesome/css/font-awesome.min.css';
 import Card from './Card';
-import axios from 'axios';
+import dataService from '../services/dataService';
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      yarns: []
     };
   }
 
   componentDidMount() {
-    axios.get(`${process.env.REACT_APP_API_URI}/yarns`).then(response => {
-      this.setState({
-        data: response.data
-      });
+    dataService.getYarns((err, yarns) => {
+      if (err) return console.log(err);
+      this.setState({ yarns });
     });
   }
 
   generateCards() {
-    return this.state.data.map((yarn, i) => {
-      return (
-        <Card
-          brand={yarn.brand}
-          name={yarn.name}
-          imagePath={yarn.imagePath}
-          key={i.toString()}
-        />
-      );
+    return this.state.yarns.map((yarn, i) => {
+      return <Card yarn={yarn} key={i} />;
     });
   }
 
@@ -55,7 +45,9 @@ class Main extends React.Component {
 
         <div className="album py-5 bg-light">
           <div className="container">
-            <div className="row">{this.generateCards()}</div>
+            <div className="row">
+              {this.state.yarns && this.generateCards()}
+            </div>
           </div>
         </div>
       </div>

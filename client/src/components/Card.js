@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Card = props => {
+const Card = ({ yarn }) => {
   return (
     <div className="col-md-4">
       <div className="card mb-4 box-shadow">
@@ -11,7 +12,7 @@ const Card = props => {
             height: 225,
             width: '100%',
             display: 'block',
-            backgroundImage: `url(${props.imagePath})`,
+            backgroundImage: `url(${yarn.imagePath})`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat'
@@ -20,26 +21,18 @@ const Card = props => {
         ></div>
         <div className="card-body">
           <p className="card-text">
-            {props.brand} - {props.name}
+            {yarn.brand} - {yarn.name}
           </p>
           <div className="d-flex justify-content-between align-items-center">
-            <div className="btn-group">
-              <button
-                type="button"
-                className="btn btn-sm btn-outline-secondary"
-              >
-                View Details
-              </button>
-              <button
-                type="button"
-                className="btn btn-sm btn-outline-secondary"
+            <div className="btn-group w-100">
+              <Link
+                to={`/yarns/edit/${yarn._id}`}
+                className="btn w-50 btn-outline-secondary"
               >
                 Edit
-              </button>
-              <button
-                type="button"
-                className="btn btn-sm btn-outline-secondary"
-              >
+              </Link>
+
+              <button type="button" className="btn w-50 btn-outline-secondary">
                 Delete
               </button>
             </div>

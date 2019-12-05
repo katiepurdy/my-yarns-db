@@ -5,6 +5,7 @@ import SignIn from './components/SignIn';
 import SignOut from './components/SignOut';
 import Register from './components/Register';
 import CreateForm from './components/CreateForm';
+import EditForm from './components/EditForm';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import {
@@ -14,9 +15,11 @@ import {
   useLocation
 } from 'react-router-dom';
 
+import 'font-awesome/css/font-awesome.min.css';
 import './css/app.css';
 import './css/signin.css';
 import './css/register.css';
+import './css/main.css';
 
 const App = () => {
   return (
@@ -26,6 +29,7 @@ const App = () => {
         <div id="main-content">
           <Switch>
             <ProtectedRoute path="/yarns/create" component={CreateForm} />
+            <ProtectedRoute path="/yarns/edit/:id" component={EditForm} />
             <Route path="/signin" component={SignIn} />
             <Route path="/signout" component={SignOut} />
             <Route path="/register" component={Register} />
