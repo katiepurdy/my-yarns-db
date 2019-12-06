@@ -67,7 +67,7 @@ router.delete('/:id', myMiddleware.checkJWT, (req, res) => {
   Yarn.findByIdAndRemove(id, (err, yarn) => {
     if (err || !yarn)
       return res.status(404).send(`A yarn with the id ${id} was not found.`);
-    res.status(204);
+    return res.status(204).send();
   });
 });
 

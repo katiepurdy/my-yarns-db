@@ -58,6 +58,20 @@ class DataService {
         cb(err.response, null);
       });
   }
+
+  deleteYarn(id, cb) {
+    axios
+      .delete(`${process.env.REACT_APP_API_URI}/yarns/${id}`, {
+        headers: { 'x-auth-token': auth.getToken() }
+      })
+      .then(response => {
+        cb(true);
+      })
+      .catch(err => {
+        console.log(err.response);
+        cb(false);
+      });
+  }
 }
 
 export default new DataService();

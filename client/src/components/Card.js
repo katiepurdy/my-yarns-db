@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Card = ({ yarn }) => {
+const Card = ({ yarn, onDelete }) => {
   return (
     <div className="col-md-4">
       <div className="card mb-4 box-shadow">
@@ -32,7 +32,11 @@ const Card = ({ yarn }) => {
                 Edit
               </Link>
 
-              <button type="button" className="btn w-50 btn-outline-secondary">
+              <button
+                type="button"
+                className="btn w-50 btn-outline-secondary"
+                onClick={e => onDelete(e, yarn._id, yarn.brand, yarn.name)}
+              >
                 Delete
               </button>
             </div>
