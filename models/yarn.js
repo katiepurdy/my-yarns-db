@@ -82,7 +82,7 @@ const validateYarn = yarn => {
     ),
     imagePath: Joi.string().required(),
     machineWashable: Joi.bool(),
-    __v: Joi.string()
+    __v: Joi.number()
   });
 
   return yarnSchema.validate(yarn);
