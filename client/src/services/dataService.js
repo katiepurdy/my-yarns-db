@@ -39,6 +39,7 @@ class DataService {
 
   updateYarn(id, yarn, cb) {
     delete yarn._id;
+    delete yarn.__v;
     delete yarn.weight;
     delete yarn.grams;
     delete yarn.yardage;
@@ -47,6 +48,7 @@ class DataService {
     delete yarn.fibres;
     delete yarn.colourways;
     delete yarn.machineWashable;
+
     axios
       .put(`${process.env.REACT_APP_API_URI}/yarns/${id}`, yarn, {
         headers: { 'x-auth-token': auth.getToken() }
