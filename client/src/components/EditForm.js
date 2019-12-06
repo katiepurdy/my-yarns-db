@@ -77,7 +77,8 @@ class EditForm extends React.Component {
         .min(2)
         .max(50)
     ),
-    machineWashable: Joi.bool()
+    machineWashable: Joi.bool(),
+    __v: Joi.string()
   };
 
   handleSubmit = e => {
