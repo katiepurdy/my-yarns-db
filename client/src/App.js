@@ -20,6 +20,7 @@ import './css/app.css';
 import './css/signin.css';
 import './css/register.css';
 import './css/main.css';
+import './css/navbar.css';
 
 const App = () => {
   return (

@@ -11,6 +11,16 @@ router.get('/', (req, res) => {
   });
 });
 
+// Search for yarn by brand
+router.get('/search/:query', (req, res) => {
+  const query = req.params.query;
+  const regex = new RegExp(query, 'gi');
+  Yarn.find({ $or: [{ brand: regex }, { name: regex }] }, (err, yarns) => {
+    if (err) return res.status(400).send('Error');
+    res.status(200).send(yarns);
+  });
+});
+
 // Get a yarn by ID
 router.get('/:id', (req, res) => {
   Yarn.findById(req.params.id, (err, yarn) => {

@@ -72,6 +72,18 @@ class DataService {
         cb(false);
       });
   }
+
+  searchYarn(query, cb) {
+    axios
+      .get(`${process.env.REACT_APP_API_URI}/yarns/search/${query}`)
+      .then(response => {
+        console.log(response);
+        cb(null, response.data);
+      })
+      .catch(err => {
+        cb(err.response, null);
+      });
+  }
 }
 
 export default new DataService();

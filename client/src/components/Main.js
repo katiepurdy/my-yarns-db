@@ -6,7 +6,8 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      yarns: []
+      yarns: [],
+      query: ' '
     };
   }
 
@@ -31,6 +32,21 @@ class Main extends React.Component {
     }
   };
 
+  handleClick = () => {
+    const query = this.state.query;
+    console.log('search button clicked!', query);
+    dataService.searchYarn(query, (error, yarns) => {
+      if (!error) {
+        this.setState({ yarns });
+      }
+    });
+  };
+
+  handleChange = e => {
+    const { value } = e.target;
+    this.setState({ query: value });
+  };
+
   generateCards() {
     if (!this.state.yarns) return null;
     return this.state.yarns.map((yarn, i) => {
@@ -47,10 +63,15 @@ class Main extends React.Component {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Search this site"
+                placeholder="Search by yarn name or brand"
+                onChange={this.handleChange}
               />
               <div className="input-group-append">
-                <button className="btn btn-secondary" type="button">
+                <button
+                  className="btn btn-secondary"
+                  type="button"
+                  onClick={this.handleClick}
+                >
                   <i className="fa fa-search"></i>
                 </button>
               </div>
