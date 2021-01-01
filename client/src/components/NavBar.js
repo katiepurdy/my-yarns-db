@@ -8,10 +8,10 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <a href="/" className="navbar-brand d-flex align-items-center">
+        <Link to="/" className="navbar-brand d-flex align-items-center">
           <FontAwesomeIcon icon={faHeart} style={{ marginRight: '1rem' }} />
           <strong>My Yarns DB</strong>
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -26,9 +26,9 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarsExample07">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <a className="nav-link" href="/">
+              <Link className="nav-link" to="/">
                 Home <span className="sr-only">(current)</span>
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/yarns/create">
